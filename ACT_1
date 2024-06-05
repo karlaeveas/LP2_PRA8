@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+class Figura {
+public:
+    virtual double calcularArea() = 0;
+};
+class Circulo : public Figura {
+private:
+    double radio;
+public:
+    Circulo(double r) : radio(r) {}
+    double calcularArea() override {
+        return 3.14159 * radio * radio;
+    }
+};
+class Rectangulo : public Figura {
+private:
+    double ancho, alto;
+public:
+    Rectangulo(double a, double b) : ancho(a), alto(b) {}
+    double calcularArea() override {
+        return ancho * alto;
+    }
+};
+class Triangulo : public Figura {
+private:
+    double base, altura, lado1, lado2;
+public:
+    Triangulo(double b, double h, double l1, double l2) : base(b), altura(h), lado1(l1), lado2(l2) {}
+    double calcularArea() override {
+        return 0.5 * base * altura;
+    }
+};
+class Cuadrado : public Figura {
+private:
+    double lado;
+public:
+    Cuadrado(double l) : lado(l) {}
+    double calcularArea() override {
+        return lado * lado;
+    }
+};
+class Pentagono : public Figura {
+private:
+    double lado, apotema;
+public:
+    Pentagono(double l, double a) : lado(l), apotema(a) {}
+    double calcularArea() override {
+        return 0.5 * lado * apotema * 5;
+    }
+};
+int main() {
+    int opcion;
+    cout << "Seleccione una figura geométrica:" << endl;
+    cout << "1. Círculo" << endl;
+    cout << "2. Rectángulo" << endl;
+    cout << "3. Triángulo" << endl;
+    cout << "4. Cuadrado" << endl;
+    cout << "5. Pentágono" << endl;
+    cin >> opcion;
+    Figura* figura = nullptr;
+    switch (opcion) {
+        case 1: {
+            double radio;
+            cout << "Ingrese el radio del círculo: ";
+            cin >> radio;
+            figura = new Circulo(radio);
+            break;
+        }
+        case 2: {
+            double ancho, alto;
+            cout << "Ingrese el ancho y alto del rectángulo: ";
+            cin >> ancho >> alto;
+            figura = new Rectangulo(ancho, alto);
+            break;
+        }
+        case 3: {
+            double base, altura, lado1, lado2;
+            cout << "Ingrese la base, altura, lado 1 y lado 2 del triángulo: ";
+            cin >> base >> altura >> lado1 >> lado2;
+            figura = new Triangulo(base, altura, lado1, lado2);
+            break;
+        }
+        case 4: {
+            double lado;
+            cout << "Ingrese el lado del cuadrado: ";
+            cin >> lado;
+            figura = new Cuadrado(lado);
+            break;
+        }
+        case 5: {
+            double lado, apotema;
+            cout << "Ingrese el lado y apotema del pentágono: ";
+            cin >> lado >> apotema;
+            figura = new Pentagono(lado, apotema);
+            break;
+        }
+        default:
+            cout << "Opción inválida" << endl;
+            return 1;
+    }
+}
