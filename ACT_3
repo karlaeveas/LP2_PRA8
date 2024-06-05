@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Animal {
+public:
+    virtual void hacerSonido() = 0;
+};
+class Perro : public Animal {
+public:
+    void hacerSonido() override {
+        std::cout << "Guau" << std::endl;
+    }
+};
+class Gato : public Animal {
+public:
+    void hacerSonido() override {
+        std::cout << "Miau" << std::endl;
+    }
+};
+
+class Vaca : public Animal {
+public:
+    void hacerSonido(){
+        std::cout << "Muu" << std::endl;
+    }
+};
+
+int main() {
+    Perro perro;
+    Gato gato;
+    Vaca vaca;
+    Animal* animal1 = new Perro();
+    Animal* animal2 = new Gato();
+    Animal* animal3 = new Vaca();
+    animal1->hacerSonido();
+    animal2->hacerSonido();
+    animal3->hacerSonido();
+    return 0;
+}
