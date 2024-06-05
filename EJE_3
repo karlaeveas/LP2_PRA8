@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Empleado {
+protected:
+    string nombre;
+    int horas_trabajadas;
+
+public:
+    Empleado(string nombre, int horas_trabajadas) : nombre(nombre), horas_trabajadas(horas_trabajadas) {}
+
+    virtual double calcular_salario() = 0;
+
+    string obtener_nombre() const {
+        return nombre;
+    }
+};
+
+class EmpleadoTiempoCompleto : public Empleado {
+private:
+    double salario_hora;
+
+public:
+    EmpleadoTiempoCompleto(string nombre, int horas_trabajadas, double salario_hora) 
+        : Empleado(nombre, horas_trabajadas), salario_hora(salario_hora) {}
+
+    double calcular_salario() override {
+        return horas_trabajadas * salario_hora;
+    }
+};
+
+class EmpleadoMedioTiempo : public Empleado {
+private:
+    double salario_hora;
+
+public:
+    EmpleadoMedioTiempo(string nombre, int horas_trabajadas, double salario_hora) 
+        : Empleado(nombre, horas_trabajadas), salario_hora(salario_hora) {}
+
+    double calcular_salario() override {
+        return horas_trabajadas * salario_hora * 0.75;
+    }
+};
+
+int main() {
+    EmpleadoTiempoCompleto empleado_tiempo_completo("Diego Pérez", 160, 10);
+    EmpleadoMedioTiempo empleado_medio_tiempo("María Holanda", 80, 10);
+
+    cout << "El salario de " << empleado_tiempo_completo.obtener_nombre() << " es: " 
+         << empleado_tiempo_completo.calcular_salario() << endl;
+
+    cout << "El salario de " << empleado_medio_tiempo.obtener_nombre() << " es: " 
+         << empleado_medio_tiempo.calcular_salario() << endl;
+
+    return 0;
+}
