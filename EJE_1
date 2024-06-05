@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+class Figura {
+public:
+    virtual void dibujar() const = 0;
+    virtual double calcular_area() const = 0;
+    virtual ~Figura() {}
+};
+class Circulo : public Figura {
+private:
+    double radio;
+public:
+    Circulo(double r) : radio(r) {}
+    void dibujar() const override {
+        cout << "Dibujando un circulo con radio " << radio << endl;
+    }
+    double calcular_area() const override {
+        return M_PI * radio * radio;
+    }
+};
+class Rectangulo : public Figura {
+private:
+    double ancho;
+    double alto;
+public:
+    Rectangulo(double a, double h) : ancho(a), alto(h) {}
+    void dibujar() const override {
+        cout << "Dibujando un rectangulo de " << ancho << " x " << alto << endl;
+    }
+    double calcular_area() const override {
+        return ancho * alto;
+    }
+};
+class Triangulo : public Figura {
+private:
+    double base;
+    double altura;
+public:
+    Triangulo(double b, double h) : base(b), altura(h) {}
+    void dibujar() const override {
+        cout << "Dibujando un triangulo con base " << base << " y altura " << altura << endl;
+    }
+    double calcular_area() const override {
+        return (base * altura) / 2.0;
+    }
+};
+int main() {
+    Figura* figuras[3];
+    figuras[0] = new Circulo(5.0);
+    figuras[1] = new Rectangulo(4.0, 6.0);
+    figuras[2] = new Triangulo(3.0, 7.0);
+    for (int i = 0; i < 3; ++i) {
+        figuras[i]->dibujar();
+        cout << "Area: " << figuras[i]->calcular_area() << endl;
+        delete figuras[i];
+    }
+    return 0;
+}
