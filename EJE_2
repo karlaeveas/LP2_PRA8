@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+// Interfaz Reproductor
+class Reproductor {
+public:
+    virtual void reproducir(const string& nombreArchivo) = 0;
+    virtual void pausar() = 0;
+    virtual void detener() = 0;
+    virtual ~Reproductor() {}
+};
+class ReproductorMP3 : public Reproductor {
+private:
+    string archivoActual;
+    bool enReproduccion;
+public:
+    ReproductorMP3() : archivoActual(""), enReproduccion(false) {}
+
+    void reproducir(const string& nombreArchivo) override {
+        archivoActual = nombreArchivo;
+        enReproduccion = true;
+        cout << "Reproduciendo archivo: " << nombreArchivo << endl;
+    }
+    void pausar() override {
+        if (enReproduccion) {
+            enReproduccion = false;
+            cout << "Pausando archivo: " << archivoActual << endl;
+        }
+        else {
+            cout << "No hay archivo reproduciendose para pausar." << endl;
+        }
+    }
+    void detener() override {
+        if (enReproduccion || !archivoActual.empty()) {
+            enReproduccion = false;
+            cout << "Deteniendo archivo: " << archivoActual << endl;
+            archivoActual = "";
+        }
+        else {
+            cout << "No hayarchivo reproduciéndose para detener." << endl;
+        }
+    }
+};
+int main() {
+    Reproductor* miReproductorMP3 = new ReproductorMP3();
+    miReproductorMP3->reproducir("cancion.mp3");
+    miReproductorMP3->pausar();
+    miReproductorMP3->detener();
+    delete miReproductorMP3;
+    return 0;
+}
